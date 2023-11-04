@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 import 'package:stripe_app/data/credit_cards.dart';
+import 'package:stripe_app/widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -45,7 +46,12 @@ class HomePage extends StatelessWidget {
                 );
               }
             ),
-          )
+          ),
+
+          const Positioned(
+            bottom: 0,
+            child: BtnTotalToPayWidget()
+          ),
 
         ],
       ),

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 import 'package:stripe_app/data/credit_cards.dart';
+import 'package:stripe_app/helpers/helpers.dart';
 import 'package:stripe_app/widgets/widgets.dart';
+import 'package:stripe_app/pages/pages.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -36,13 +38,22 @@ class HomePage extends StatelessWidget {
               itemCount: stripeCards.length,
               itemBuilder: ( _, i ) {
                 final card = stripeCards[i];
-                return CreditCardWidget(
-                  cardHolderName: card.cardHolderName,
-                  cardNumber: card.cardNumber,
-                  cvvCode: card.cvv,
-                  expiryDate: card.expiracyDate,
-                  showBackView: false,
-                  onCreditCardWidgetChange: ( CreditCardBrand ) {  },
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, navigateFadeIn(context, const CardPage()));
+                  },
+                  child: Hero(
+                    tag: card.cardNumber,
+                    child: CreditCardWidget(
+                      cardHolderName: card.cardHolderName,
+                      cardNumber: card.cardNumber,
+                      cvvCode: card.cvv,
+                      expiryDate: card.expiracyDate,
+                      showBackView: false,
+                      isSwipeGestureEnabled: false,
+                      onCreditCardWidgetChange: ( CreditCardBrand ) {},
+                    ),
+                  ),
                 );
               }
             ),

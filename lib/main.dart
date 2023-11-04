@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home',
       routes: {
         'home': (_) => const HomePage(),
-        'card': (_) => const CardPage(),
+        // 'card': (_) => const CardPage(),
         'payment_complete': (_) => const PaymentCompletePage(),
       },
     );

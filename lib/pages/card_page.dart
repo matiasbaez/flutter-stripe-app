@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:stripe_app/bloc/blocs.dart';
 
 import 'package:stripe_app/widgets/widgets.dart';
-import 'package:stripe_app/models/models.dart';
 
 class CardPage extends StatelessWidget {
 
@@ -12,18 +13,19 @@ class CardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final card = CustomCreditCard(
-      cardNumberHidden: '4242',
-      cardNumber: '4242424242424242',
-      brand: 'visa',
-      cvv: '213',
-      expiracyDate: '01/25',
-      cardHolderName: 'Fernando Herrera'
-    );
+    final paymentBloc = BlocProvider.of<PaymentBloc>(context);
+    final card = paymentBloc.state.card!;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pagar'),
+        leading: IconButton(
+          icon: const Icon( Icons.arrow_back ),
+          onPressed: () {
+            paymentBloc.add(DisableCardEvent());
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Stack(
         children: [
